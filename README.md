@@ -129,8 +129,8 @@ because it accesses `window` directly in multiple places:
 **Workaround:** The `Header` wrapper component uses `useState`/`useEffect` to suppress
 SSR internally — it renders `null` on the server and mounts `GlobalHeader` only after the
 page hydrates in the browser. This means the header is absent from the initial HTML and
-appears after hydration — a minor trade-off for compatibility with a library not designed
-for SSR. `Footer` has no `window` dependencies and renders on the server normally.
+appears after hydration — a minor trade-off for compatibility with a library.
+`Footer` has no `window` dependencies and renders on the server normally.
 
 ---
 
