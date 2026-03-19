@@ -10,7 +10,7 @@ JetBrains `@rescui` and `@jetbrains/kotlin-web-site-ui` libraries.
 ### Development
 
 ```bash
-npm install
+npm install && npm run build
 npm run dev
 ```
 
@@ -208,3 +208,12 @@ include the `.map` file in the npm package. The CSS works correctly. Safe to ign
 Chrome silently requests `/.well-known/appspecific/com.chrome.devtools.json` on every
 local dev server looking for debugging config. React Router has no route for it and logs
 an error. Safe to ignore.
+
+### ThemeProvider and Header not rendering in dev mode (fixed)
+
+`ssr.noExternal` causes Vite to process `@rescui` packages through its full pipeline during SSR.
+As a side effect, Vite's SSR pipeline picks up the `"use client"` directive inside `ThemeProvider.js` and skips
+the component during server-side rendering entirely.
+
+`Header` depends on the React context that `ThemeProvider` provides — without it,
+`Header` has no theme value and also fails to render.

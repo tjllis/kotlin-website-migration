@@ -17,14 +17,45 @@ import "@rescui/colors/lib/index.css"; // rescui CSS custom properties
 import "@rescui/typography/lib/font-jb-sans-auto.css"; // preload JetBrains Sans & Inter
 import "./app.scss";
 
-export const meta: Route.MetaFunction = () => [{ title: "Kotlin" }];
+// data from head.html & base.html:
+export const meta: Route.MetaFunction = () => [
+  { title: "Kotlin" },
+  // Open Graph - used by Facebook, LinkedIn, Slack, Telegram, WhatsApp, Discord
+  // to render a link preview card in a post etc.
+  { property: "og:title", content: "Kotlin Programming Language" },
+  { property: "og:type", content: "website" },
+  { property: "og:url", content: "https://kotlinlang.org/" },
+  {
+    property: "og:image",
+    content: "https://kotlinlang.org/assets/images/open-graph/general.png",
+  },
+  {
+    property: "og:description",
+    content:
+      "Kotlin is a modern programming language that makes developers happier.",
+  },
+  { property: "og:site_name", content: "Kotlin" },
+  // Twitter - same
+  { name: "twitter:card", content: "summary_large_image" },
+  { name: "twitter:site", content: "@kotlin" },
+  { name: "twitter:title", content: "Kotlin Programming Language" },
+  {
+    name: "twitter:description",
+    content:
+      "Kotlin is a modern programming language that makes developers happier.",
+  },
+  {
+    name: "twitter:image:src",
+    content: "https://kotlinlang.org/assets/images/twitter/general.png",
+  },
+];
 
 // preload fonts as it was done in index.html
 // (skipped italic version since it is not used):
 export const links: Route.LinksFunction = () => [
   {
     rel: "icon",
-    href: "/assets/images/favicon.ico",
+    href: "/favicon.ico",
   },
   {
     rel: "preload",
@@ -65,7 +96,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <ThemeProvider theme="dark">
-          <Header searchConfig={{}} />
+          <Header
+            searchConfig={{}}
+            productWebUrl="https://github.com/JetBrains/kotlin/releases/tag/v2.3.20"
+          />
           {children}
           <Footer />
         </ThemeProvider>
